@@ -94,6 +94,10 @@ describe('reduce', () => {
     const callback = jest.fn();
 
     expect(() => [].reduce2(callback)).not.toThrow(TypeError);
+
+    expect(() => {
+      [3, 4].reduce2();
+    }).toThrow(TypeError);
   });
 
   it('should return reduced items', () => {

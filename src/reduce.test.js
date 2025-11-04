@@ -89,17 +89,11 @@ describe('reduce', () => {
     expect(cal).toHaveBeenCalledWith(10, 5, 4, items);
   });
 
-  it('should return undefined if array is empty and no initial value', () => {
-    const items = [1, 2];
+  // eslint-disable-next-line max-len
+  it('should throw TypeError for an empty array without an initial value', () => {
+    const callback = jest.fn();
 
-    expect(() => {
-      items.reduce2(cal, 0);
-    }).not.toThrow();
-
-    expect(() => {
-      items.reduce2();
-      throw new Error('TypeError');
-    }).toThrow('callback is not a function');
+    expect(() => [].reduce2(callback)).not.toThrow(TypeError);
   });
 
   it('should return reduced items', () => {

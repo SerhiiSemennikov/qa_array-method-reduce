@@ -46,7 +46,7 @@ describe('reduce', () => {
     expect(cal).toHaveBeenCalledTimes(items.length);
   });
 
-  it('should return reduced number items', () => {
+  it('should return reduced items', () => {
     const items = [1, 2, 3, 4, 5];
 
     const result = items.reduce2(cal, 0);
@@ -54,20 +54,12 @@ describe('reduce', () => {
     expect(result).toEqual(15);
   });
 
-   it("should return reduced string items", () => {
-     const items = ['al', 'ka', 't', 'r', 'az'];
+  it('should return reduced items without initial value', () => {
+    const items = [1, 2, 3, 4, 5];
 
-     const result = items.reduce2(cal, "prison ");
+    const result = items.reduce2(cal);
 
-     expect(result).toEqual("prison alkatraz");
-   });
-
-  it('should return items[0] if arguments.length < 2', () => {
-    const items = [5];
-
-    const result = items.reduce2(cal, 0);
-
-    expect(result).toEqual(5);
+    expect(result).toEqual(15);
   });
 
   it('should not call a callback for an empty array', () => {
@@ -98,9 +90,23 @@ describe('reduce', () => {
   });
 
   it('should return undefined if array is empty and no initial value', () => {
-    const items = [];
-    const result = items.reduce2(cal);
+    const items = [1, 2];
 
-    expect(result).toBe(undefined);
+    expect(() => {
+      items.reduce2(cal, 0);
+    }).not.toThrow();
+
+    expect(() => {
+      items.reduce2();
+      throw new Error('TypeError');
+    }).toThrow('callback is not a function');
+  });
+
+  it('should return reduced items', () => {
+    const items = ['al', 'ka', 't', 'r', 'az'];
+
+    const result = items.reduce2(cal, 'prison ');
+
+    expect(result).toEqual('prison alkatraz');
   });
 });

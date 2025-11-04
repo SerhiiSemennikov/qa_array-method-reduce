@@ -100,6 +100,15 @@ describe('reduce', () => {
     }).toThrow(TypeError);
   });
 
+  it('array with a single element and no initial value', () => {
+    const items = [5];
+
+    const result = items.reduce2(cal);
+
+    expect(cal).not.toHaveBeenCalled();
+    expect(result).toEqual(5);
+  });
+
   it('should return reduced items', () => {
     const items = ['al', 'ka', 't', 'r', 'az'];
 
